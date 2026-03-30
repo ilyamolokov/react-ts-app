@@ -1,17 +1,7 @@
 import { API_URL } from "@/lib/const";
 import axios, { type AxiosInstance, type AxiosRequestConfig } from "axios";
-
-interface ILoginResponse {
-  id: number;
-  username: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  gender: string;
-  image: string;
-  accessToken: string;
-  refreshToken: string;
-}
+import { ILoginResponse } from "./responses";
+import { ILoginRequestBody } from "./requests";
 
 export class Http {
   private readonly client: AxiosInstance;
@@ -39,7 +29,7 @@ export class Http {
     return (await this.client.post(url, body, config)).data;
   }
 
-  login(body: { username: string, password: string}): Promise<ILoginResponse> {
+  login(body: ILoginRequestBody): Promise<ILoginResponse> {
     return this.post('auth/login', body, { withCredentials: true })
   }
 }

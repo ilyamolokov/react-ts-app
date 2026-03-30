@@ -1,5 +1,5 @@
 import { DataTable } from "@/ui/data-table";
-import type { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef } from "@tanstack/react-table";
 import { ProductsTableTitleCell } from "./products-table-title-cell";
 import { Icon } from "@/ui/icon";
 

@@ -4,8 +4,16 @@ import { Button } from "@/ui/button";
 import { Checkbox } from "@/ui/checkbox";
 import { Label } from "@/ui/label";
 import { Icon } from "../../ui/icon";
+import { ILoginRequestBody } from "@/api/requests";
 
-export const AuthForm = () => {
+interface AuthFormProps {
+  onLogin: (body: ILoginRequestBody) => void;
+  isPending: boolean;
+  error: Error | null;
+}
+
+export const AuthForm = (data: AuthFormProps) => {
+  console.log(data);
   return (
     <div className="w-full max-w-128.75 rounded-[40px] shadow-[0px_19px_31px_-15px_rgba(34,60,80,0.1)] bg-white border-6 border-white overflow-hidden">
       <div className="flex flex-col gap-8 items-center shadow-[inset_0px_9px_20px_-5px_rgba(34,60,80,0.1)] p-6 lg:p-12">
