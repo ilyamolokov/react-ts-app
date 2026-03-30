@@ -6,8 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { toast } from "sonner";
 import { StorageKeyEnum } from "@/storage/enums";
-import { localStorageService } from "@/storage/local-storage-service";
-import { sessionStorageService } from "@/storage/session-storage-service";
+import { localStorageService, sessionStorageService } from "@/storage";
 
 export const AuthPage = () => {
   const { data, mutate, isPending } = useMutation<
