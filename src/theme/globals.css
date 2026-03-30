@@ -1,8 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
 
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -11,6 +8,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --font-roboto: "Roboto Mono", sans-serif;
+  --font-inter: "Inter", sans-serif;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -56,11 +56,13 @@
 
   --color-grey-50: #ededed;
   --color-grey-100: #e0e0e0;
-  --color-grey-900: #232323;
-  --color-grey-600: #6c6c6c;
+  --color-grey-300: #f3f3f3;
   --color-grey-400: #9c9c9c;
+  --color-grey-600: #6c6c6c;
+  --color-grey-900: #232323;
+  --color-blue-400: #242edb;
 
-  --color-blue-500: #367aff;
+  --color-red-400: #f11010;
 }
 
 :root {

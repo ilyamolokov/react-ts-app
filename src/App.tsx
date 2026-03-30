@@ -1,9 +1,10 @@
-import { AuthForm } from "./components/auth-form";
+import { ProductsPage } from "./pages/products-page";
 
 function App() {
   return (
-    <div className="w-full h-screen flex flex-col justify-center items-center font-inter">
-      <AuthForm />
+    <div className="w-full h-screen font-inter">
+      {/*<AuthPage />*/}
+      <ProductsPage />
     </div>
   );
 }

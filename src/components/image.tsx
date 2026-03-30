@@ -15,10 +15,6 @@ interface ImageProps {
 
 export const Image = ({ name, width, height, size = 24 }: ImageProps) => {
   return (
-    <img
-      src={imageSrc[name]}
-      width={width ?? size}
-      height={height ?? size}
-    ></img>
+    <img src={imageSrc[name]} width={width ?? size} height={height ?? size} />
   );
 };

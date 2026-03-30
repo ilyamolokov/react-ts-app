@@ -10,7 +10,9 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-white text-lg font-semibold border border-blue-500 hover:bg-primary/85 transition-all duration-300 hover:cursor-pointer",
+          "text-grey bg-white border border-[#ECECEB] transition-all duration-300 hover:cursor-pointer hover:bg-white/85",
+        primary:
+          "bg-primary text-white border border-blue-400 hover:bg-primary/85 transition-all duration-300 hover:cursor-pointer",
         // outline:
         //   "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
         // secondary:
@@ -23,7 +25,8 @@ const buttonVariants = cva(
       },
       size: {
         default:
-          "h-[54px] gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
+          "h-[54px] gap-1.5 px-2.5 rounded-[12px] font-semibold text-lg has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
+        sm: "h-[42px] gap-1.5 rounded-[6px] px-[20px] font-semibold text-[14px] has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
         // xs: "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
         // sm: "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
         // lg: "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3",
@@ -32,7 +35,8 @@ const buttonVariants = cva(
         //   "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
         // "icon-sm":
         //   "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
-        // "icon-lg": "size-9",
+        icon: "w-[42px] h-[42px] rounded-[8px]",
+        "icon-sm": "w-[30px] h-[30px] rounded-[4px]",
       },
       fullWidth: {
         true: "w-full",
@@ -72,4 +76,4 @@ function Button({
   );
 }
 
-export { Button, buttonVariants };
+export { Button };
