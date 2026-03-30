@@ -1,7 +1,7 @@
 import { API_URL } from "@/lib/const";
 import axios, { type AxiosInstance, type AxiosRequestConfig } from "axios";
-import { ILoginResponse } from "./responses";
 import { ILoginRequestBody } from "./requests";
+import { ILoginResponse } from "./responses";
 
 export class Http {
   private readonly client: AxiosInstance;
@@ -9,7 +9,7 @@ export class Http {
 
   constructor(url: string) {
     this.baseURL = url
-    this.client = axios.create({ baseURL: this.baseURL });
+    this.client = axios.create({ baseURL: this.baseURL, });
   }
 
   async get<Response = unknown>(
@@ -30,7 +30,7 @@ export class Http {
   }
 
   login(body: ILoginRequestBody): Promise<ILoginResponse> {
-    return this.post('auth/login', body, { withCredentials: true })
+    return this.post('auth/login', body, { headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Credentials': 'true' } })
   }
 }
 

@@ -1,3 +1,4 @@
+import { Toaster } from "@/ui/sonner";
 import { AuthPage } from "./pages/auth-page";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -10,6 +11,7 @@ function App() {
         <AuthPage />
         {/*<ProductsPage />*/}
       </div>
+      <Toaster position="top-center" />
     </QueryClientProvider>
   );
 }
