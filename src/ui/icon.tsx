@@ -4,6 +4,7 @@ const iconSrc = {
   user: "./svg/user.svg",
   lock: "./svg/lock.svg",
   "eye-off": "./svg/eye-off.svg",
+  "eye-on": "./svg/eye-on.svg",
   search: "./svg/search.svg",
   "circle-plus": "./svg/circle-plus.svg",
   "circle-dots-three": "./svg/circle-dots-three.svg",
@@ -19,6 +20,7 @@ interface IconProps {
     | "user"
     | "lock"
     | "eye-off"
+    | "eye-on"
     | "search"
     | "circle-plus"
     | "circle-dots-three"
