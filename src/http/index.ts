@@ -30,7 +30,7 @@ export class Http {
   }
 
   login(body: ILoginRequestBody): Promise<ILoginResponse> {
-    return this.post('auth/login', body, { headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Credentials': 'true' } })
+    return this.post('auth/login', { username: body.username, password: body.password }, { headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Credentials': 'true' } })
   }
 }
 

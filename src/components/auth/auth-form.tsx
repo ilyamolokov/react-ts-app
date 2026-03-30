@@ -1,31 +1,31 @@
-import { InputGroup, InputGroupInput, InputGroupAddon } from "@/ui/input-group";
-import { Field, FieldError, FieldLabel } from "@/ui/field";
+import { ILoginRequestBody } from "@/http/requests";
+import { ILoginResponse } from "@/http/responses";
 import { Button } from "@/ui/button";
 import { Checkbox } from "@/ui/checkbox";
-import { Label } from "@/ui/label";
-import { Icon } from "../../ui/icon";
-import { ILoginRequestBody } from "@/http/requests";
-import { z } from "zod";
+import { Field, FieldError, FieldLabel } from "@/ui/field";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@/ui/input-group";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { Loader2 } from "lucide-react";
 import { useEffect } from "react";
+import { Controller, SubmitHandler, useForm, Watch } from "react-hook-form";
+import { z } from "zod";
+import { Icon } from "../../ui/icon";
 
 const LoginSchema = z.object({
   username: z.string().min(1, "Логин должен содержать минимум 1 символ"),
   password: z.string().min(1, "Пароль должен содержать минимум 1 символ"),
-  checked: z.boolean().optional(),
+  checked: z.boolean(),
 });
 
 export type ILoginSchema = z.infer<typeof LoginSchema>;
 
 interface AuthFormProps {
+  data: ILoginResponse | undefined;
   onLogin: (body: ILoginRequestBody) => void;
   isPending: boolean;
-  isSuccess: boolean;
 }
 
-export const AuthForm = ({ onLogin, isPending, isSuccess }: AuthFormProps) => {
+export const AuthForm = ({ onLogin, isPending, data }: AuthFormProps) => {
   const { handleSubmit, control, reset } = useForm<ILoginSchema>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -36,18 +36,14 @@ export const AuthForm = ({ onLogin, isPending, isSuccess }: AuthFormProps) => {
   });
 
   const onSubmit: SubmitHandler<ILoginSchema> = (data) => {
-    const {
-      username,
-      password,
-      // checked
-    } = data;
-    onLogin({ username, password });
+    const { username, password, checked } = data;
+    onLogin({ username, password, checked });
   };
 
   useEffect(() => {
-    if (!isSuccess) return;
+    if (!data) return;
     reset();
-  }, [isSuccess]);
+  }, [data]);
 
   return (
     <form
@@ -139,10 +135,16 @@ export const AuthForm = ({ onLogin, isPending, isSuccess }: AuthFormProps) => {
           <Controller
             name="checked"
             control={control}
-            render={({ field }) => (
+            render={({ field: { name, value, onChange } }) => (
               <Field orientation="horizontal">
-                <Checkbox id={field.name} disabled={isPending} />
-                <Label htmlFor={field.name}>{"Запомнить данные"}</Label>
+                <Checkbox
+                  id={name}
+                  disabled={isPending}
+                  name={name}
+                  checked={value}
+                  onCheckedChange={onChange}
+                />
+                <FieldLabel htmlFor={name}>{"Запомнить данные"}</FieldLabel>
               </Field>
             )}
           />
