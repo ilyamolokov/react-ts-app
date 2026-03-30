@@ -1,6 +1,6 @@
-import { AuthPage } from "@/pages/auth-page";
-import { HomePage } from "@/pages/home-page";
-import { ProductsPage } from "@/pages/products-page";
+import { AuthPage } from "@/pages/auth";
+import { HomePage } from "@/pages/home";
+import { ProductsPage } from "@/pages/products";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Paths } from "./enums";
 
