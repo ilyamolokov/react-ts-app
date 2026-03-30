@@ -3,7 +3,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ProductsTableTitleCell } from "./products-table-title-cell";
 import { Icon } from "@/ui/icon";
 
-const formantPrice = (num: number) => {
+const formatPrice = (num: number) => {
   return {
     dollars: Number(num.toFixed(0)).toLocaleString(),
     cents: Number(
@@ -189,7 +189,7 @@ const columns: ColumnDef<IItem>[] = [
     accessorKey: "price",
     header: "Цена, ₽",
     cell: ({ row }) => {
-      const { dollars, cents } = formantPrice(row.original.price);
+      const { dollars, cents } = formatPrice(row.original.price);
       return (
         <p className="text-[#222222] font-roboto">
           {dollars}
