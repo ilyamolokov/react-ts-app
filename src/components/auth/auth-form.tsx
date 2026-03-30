@@ -1,12 +1,16 @@
 import { ILoginRequestBody } from "@/http/requests";
-import { ILoginResponse } from "@/http/responses";
 import { Button } from "@/ui/button";
 import { Checkbox } from "@/ui/checkbox";
 import { Field, FieldError, FieldLabel } from "@/ui/field";
-import { InputGroup, InputGroupAddon, InputGroupInput } from "@/ui/input-group";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from "@/ui/input-group";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { Icon } from "../../ui/icon";
@@ -20,12 +24,13 @@ const LoginSchema = z.object({
 export type ILoginSchema = z.infer<typeof LoginSchema>;
 
 interface AuthFormProps {
-  data: ILoginResponse | undefined;
+  isSuccess: boolean;
   onLogin: (body: ILoginRequestBody) => void;
   isPending: boolean;
 }
 
-export const AuthForm = ({ onLogin, isPending, data }: AuthFormProps) => {
+export const AuthForm = ({ onLogin, isPending, isSuccess }: AuthFormProps) => {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const { handleSubmit, control, reset } = useForm<ILoginSchema>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -35,15 +40,19 @@ export const AuthForm = ({ onLogin, isPending, data }: AuthFormProps) => {
     },
   });
 
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible((prev) => !prev);
+  };
+
   const onSubmit: SubmitHandler<ILoginSchema> = (data) => {
     const { username, password, checked } = data;
     onLogin({ username, password, checked });
   };
 
   useEffect(() => {
-    if (!data) return;
+    if (!isSuccess) return;
     reset();
-  }, [data]);
+  }, [isSuccess]);
 
   return (
     <form
@@ -88,7 +97,14 @@ export const AuthForm = ({ onLogin, isPending, data }: AuthFormProps) => {
                       disabled={isPending}
                     />
                     <InputGroupAddon align="inline-end">
-                      <Icon name="x" width={14} height={16} />
+                      <InputGroupButton
+                        aria-label="Reset username"
+                        title="Reset username"
+                        size="icon-xs"
+                        onClick={() => onChange("")}
+                      >
+                        <Icon name="x" width={14} height={16} />
+                      </InputGroupButton>
                     </InputGroupAddon>
                   </InputGroup>
                   {fieldState.invalid && (
@@ -116,12 +132,19 @@ export const AuthForm = ({ onLogin, isPending, data }: AuthFormProps) => {
                       onChange={onChange}
                       value={value}
                       aria-invalid={fieldState.invalid}
-                      type="password"
+                      type={isPasswordVisible ? "text" : "password"}
                       placeholder="Введите пароль"
                       disabled={isPending}
                     />
                     <InputGroupAddon align="inline-end">
-                      <Icon name="eye-off" />
+                      <InputGroupButton
+                        aria-label="Password visibility"
+                        title="Password visibility"
+                        size="icon-xs"
+                        onClick={togglePasswordVisibility}
+                      >
+                        <Icon name={isPasswordVisible ? "eye-on" : "eye-off"} />
+                      </InputGroupButton>
                     </InputGroupAddon>
                   </InputGroup>
                   {fieldState.invalid && (

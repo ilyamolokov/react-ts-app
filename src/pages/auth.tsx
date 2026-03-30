@@ -9,7 +9,7 @@ import { StorageKeyEnum } from "@/storage/enums";
 import { localStorageService, sessionStorageService } from "@/storage";
 
 export const AuthPage = () => {
-  const { data, mutate, isPending } = useMutation<
+  const { mutate, isPending, isSuccess } = useMutation<
     ILoginResponse,
     AxiosError<{ message: string }>,
     ILoginRequestBody
@@ -38,7 +38,7 @@ export const AuthPage = () => {
 
   return (
     <div className="flex flex-col justify-center items-center w-full h-full">
-      <AuthForm data={data} onLogin={onLogin} isPending={isPending} />
+      <AuthForm isSuccess={isSuccess} onLogin={onLogin} isPending={isPending} />
     </div>
   );
 };
