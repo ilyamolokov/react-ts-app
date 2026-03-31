@@ -1,7 +1,7 @@
 import { API_URL, EMPTY } from "@/lib/const";
 import axios, { type AxiosInstance, type AxiosRequestConfig } from "axios";
-import { IGetProductsRequestParams, ILoginRequestBody, ISearchProductsRequestParams } from "./requests";
-import { IGetProductsResponse, ILoginResponse, ISearchProductsResponse } from "./responses";
+import { IGetProductsRequestParams, ILoginRequestBody } from "./requests";
+import { IGetProductsResponse, ILoginResponse } from "./responses";
 
 export class Api {
   private readonly client: AxiosInstance;
@@ -34,11 +34,7 @@ export class Api {
   }
 
   getProducts(params?: Partial<IGetProductsRequestParams>) {
-    return this.get<IGetProductsResponse>('products', params)
-  }
-
-  searchProducts(params?: Partial<ISearchProductsRequestParams>) {
-    return this.get<ISearchProductsResponse>('products/search', params)
+    return this.get<IGetProductsResponse>('products/search', params)
   }
 }
 

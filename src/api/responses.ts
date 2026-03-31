@@ -27,11 +27,3 @@ export interface IGetProductsResponse {
   skip: number;
   limit: number;
 }
-
-export interface ISearchProductsResponse {
-  products: IProduct[];
-  total: number;
-  skip: number;
-  limit: number;
-}
-

@@ -6,7 +6,6 @@ import { useURLParamsData } from "@/hooks/use-url-params-data";
 import { useQuery } from "@tanstack/react-query";
 import { ChangeEvent, useState } from "react";
 import { IProduct } from "@/api/responses";
-import { GET_PRODUCTS_LIMITS_VALUE } from "@/lib/const";
 
 export const ProductsPage = () => {
   const { search, setSearch, sortBy, order } = useURLParamsData();
@@ -16,21 +15,12 @@ export const ProductsPage = () => {
 
   const { data, isFetching, error, refetch } = useQuery({
     queryKey: ["getProducts", debouncedSearch, sortBy, order],
-    queryFn: () => {
-      if (debouncedSearch) {
-        return api.searchProducts({
-          q: debouncedSearch,
-          ...(sortBy && { sortBy }),
-          ...(order && { order }),
-        });
-      } else {
-        return api.getProducts({
-          limits: GET_PRODUCTS_LIMITS_VALUE,
-          ...(sortBy && { sortBy }),
-          ...(order && { order }),
-        });
-      }
-    },
+    queryFn: () =>
+      api.getProducts({
+        ...(debouncedSearch && { q: debouncedSearch }),
+        ...(sortBy && { sortBy }),
+        ...(order && { order }),
+      }),
   });
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
