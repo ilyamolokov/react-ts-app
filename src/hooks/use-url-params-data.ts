@@ -5,13 +5,17 @@ import { parseAsInteger, useQueryState } from "nuqs";
 enum QueryParams {
   PAGE = "page",
   PER_PAGE = "perPage",
-  SEARCH = "search"
+  SEARCH = "search",
+  SORT_BY = "sortBy",
+  ORDER = "order"
 }
 
 interface IUseURLParamsData {
   [QueryParams.PER_PAGE]: number;
   [QueryParams.PAGE]: number;
   [QueryParams.SEARCH]: string;
+  [QueryParams.SORT_BY]: string;
+  [QueryParams.ORDER]: string;
 }
 
 export const useURLParamsData = (
@@ -31,6 +35,15 @@ export const useURLParamsData = (
     defaultValue: defaultValues?.[QueryParams.SEARCH] ?? "",
   });
 
+  const [sortBy, setSortBy] = useQueryState(QueryParams.SORT_BY, {
+    defaultValue: defaultValues?.[QueryParams.SORT_BY] ?? "",
+  });
+
+
+  const [order, setOrder] = useQueryState(QueryParams.ORDER, {
+    defaultValue: defaultValues?.[QueryParams.ORDER] ?? "",
+  });
+
 
   return {
     perPage,
@@ -40,6 +53,12 @@ export const useURLParamsData = (
     setPage,
 
     search,
-    setSearch
+    setSearch,
+
+    sortBy,
+    setSortBy,
+
+    order,
+    setOrder
   };
 };

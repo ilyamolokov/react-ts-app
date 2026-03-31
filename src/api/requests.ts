@@ -5,6 +5,13 @@ export interface ILoginRequestBody {
 }
 
 export interface IGetProductsRequestParams {
-  limit: number;
-  skip: number
+  limits: number;
+  sortBy: string;
+  order: string
+}
+
+export interface ISearchProductsRequestParams {
+  q: string;
+  sortBy: string;
+  order: string
 }

@@ -5,15 +5,9 @@ import { Icon } from "@/ui/icon";
 import { ProductsTableLoader } from "./products-table-loader";
 import { ProductsTableError } from "./products-table-error";
 import { IGetProductsResponse, IProduct } from "@/api/responses";
-
-const formatPrice = (num: number) => {
-  return {
-    dollars: Number(num.toFixed(0)).toLocaleString(),
-    cents: Number(
-      num.toString().slice(num.toString().indexOf(".") + 1),
-    ).toLocaleString(),
-  };
-};
+import { ProductsTableSortableHeader } from "./products-table-sortable-header";
+import { formatPrice } from "@/lib/format-price";
+import { DASH } from "@/lib/const";
 
 const columns: ColumnDef<IProduct>[] = [
   {
@@ -25,7 +19,9 @@ const columns: ColumnDef<IProduct>[] = [
   },
   {
     accessorKey: "title",
-    header: "Наименование",
+    header: () => (
+      <ProductsTableSortableHeader accessorKey="title" label="Наименование" />
+    ),
     cell: ({ row }) => (
       <ProductsTableTitleCell
         title={row.original.title}
@@ -36,21 +32,27 @@ const columns: ColumnDef<IProduct>[] = [
   },
   {
     accessorKey: "brand",
-    header: "Вендор",
+    header: () => (
+      <ProductsTableSortableHeader accessorKey="brand" label="Вендор" />
+    ),
     cell: ({ row }) => (
-      <p className="font-bold text-[#222222]">{row.original.brand}</p>
+      <p className="font-bold text-[#222222]">{row.original.brand ?? DASH}</p>
     ),
   },
   {
     accessorKey: "sku",
-    header: "Артикул",
+    header: () => (
+      <ProductsTableSortableHeader accessorKey="sku" label="Артикул" />
+    ),
     cell: ({ row }) => (
       <p className="text-[#222222] font-roboto">{row.original.sku}</p>
     ),
   },
   {
     accessorKey: "rating",
-    header: "Оценка",
+    header: () => (
+      <ProductsTableSortableHeader accessorKey="rating" label="Оценка" />
+    ),
     cell: ({ row }) => {
       const rating = row.original.rating;
       return (
@@ -65,7 +67,9 @@ const columns: ColumnDef<IProduct>[] = [
   },
   {
     accessorKey: "price",
-    header: "Цена, ₽",
+    header: () => (
+      <ProductsTableSortableHeader accessorKey="price" label="Цена, ₽" />
+    ),
     cell: ({ row }) => {
       const { dollars, cents } = formatPrice(row.original.price);
       return (

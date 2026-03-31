@@ -10,7 +10,7 @@ export const ProductsTableTitleCell = ({
   thumbnail,
 }: ProductsTableTitleCellProps) => {
   return (
-    <div className="flex gap-[18px]">
+    <div className="flex gap-4.5">
       <img
         src={thumbnail}
         alt={`${title} image`}
@@ -20,7 +20,7 @@ export const ProductsTableTitleCell = ({
       />
       <div className="flex flex-col gap-[10px] items-start justify-center">
         <p className="leading-4 font-bold">{title}</p>
-        <p className="text-sm leading-[14px] text-[#B2B3B9]">{category}</p>
+        <p className="text-sm leading-3.5 text-[#B2B3B9]">{category}</p>
       </div>
     </div>
   );

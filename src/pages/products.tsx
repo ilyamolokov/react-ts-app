@@ -7,16 +7,24 @@ import { useQuery } from "@tanstack/react-query";
 import { ChangeEvent } from "react";
 
 export const ProductsPage = () => {
-  const { search, setSearch } = useURLParamsData();
+  const { search, setSearch, sortBy, order } = useURLParamsData();
   const debouncedSearch = useDebounce(search, 500);
 
-  const { data, isFetching, error } = useQuery({
-    queryKey: ["getProducts", debouncedSearch],
+  const { data, isFetching, error, refetch } = useQuery({
+    queryKey: ["getProducts", debouncedSearch, sortBy, order],
     queryFn: () => {
       if (debouncedSearch) {
-        return api.searchProducts({ q: debouncedSearch });
+        return api.searchProducts({
+          q: debouncedSearch,
+          ...(sortBy && { sortBy }),
+          ...(order && { order }),
+        });
       } else {
-        return api.getProducts();
+        return api.getProducts({
+          limits: 0,
+          ...(sortBy && { sortBy }),
+          ...(order && { order }),
+        });
       }
     },
   });
@@ -35,7 +43,12 @@ export const ProductsPage = () => {
         />
       </div>
       <div className="h-full pt-7.5 w-full">
-        <ProductsTable data={data} isFetching={isFetching} error={error} />
+        <ProductsTable
+          data={data}
+          isFetching={isFetching}
+          error={error}
+          refetch={refetch}
+        />
       </div>
     </div>
   );

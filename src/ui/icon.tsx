@@ -11,6 +11,8 @@ const iconSrc = {
   refresh: "./svg/refresh.svg",
   sort: "./svg/sort.svg",
   plus: "./svg/plus.svg",
+  asc: "./svg/asc.svg",
+  desc: "./svg/desc.svg",
 };
 
 interface IconProps {
@@ -26,6 +28,8 @@ interface IconProps {
     | "circle-dots-three"
     | "refresh"
     | "plus"
+    | "asc"
+    | "desc"
     | "sort";
   size?: number;
   width?: number;
