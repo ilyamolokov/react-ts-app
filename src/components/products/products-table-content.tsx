@@ -6,10 +6,12 @@ import { productTableColumns } from "./product-table-columns";
 
 export const ProductsTableContent = ({
   data,
+  clientProductsData,
   isFetching,
   error,
 }: {
   data: IGetProductsResponse | undefined;
+  clientProductsData: IProduct[];
   isFetching: boolean;
   error: Error | null;
 }) => {
@@ -24,7 +26,7 @@ export const ProductsTableContent = ({
   return (
     <DataTable
       columns={productTableColumns}
-      data={data.products}
+      data={[...clientProductsData, ...data.products]}
       getRowId={(row: IProduct) => row.id.toString()}
     />
   );

@@ -11,6 +11,7 @@ import {
   SORTABLE_COLUMNS_LABEL,
   sortableColumns,
 } from "./product-table-columns";
+import { Button } from "@/ui/button";
 
 export const ProductsTableSortDropdown = () => {
   const sortableColumnsKeys = Object.keys(
@@ -19,10 +20,10 @@ export const ProductsTableSortDropdown = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
-        <div className="w-[42px] h-[42px] flex justify-center items-center rounded-[8px] text-grey bg-white border border-[#ECECEB] transition-all duration-300 hover:cursor-pointer hover:bg-white/85">
+      <DropdownMenuTrigger asChild>
+        <Button size="icon">
           <Icon name="sort" size={22} />
-        </div>
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-[155px]">
         <DropdownMenuGroup>

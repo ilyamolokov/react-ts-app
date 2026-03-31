@@ -3,7 +3,7 @@ import { InputGroup, InputGroupAddon, InputGroupInput } from "@/ui/input-group";
 import { Icon } from "@/ui/icon";
 import { ChangeEvent } from "react";
 
-export const SearchProducts = ({
+export const ProductsSearch = ({
   value,
   disabled,
   onChange,

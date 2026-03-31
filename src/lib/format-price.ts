@@ -1,8 +1,9 @@
 export const formatPrice = (num: number) => {
+  const dollars = Math.floor(num);
+  const cents = Math.round((num - dollars) * 100);
+
   return {
-    dollars: Number(num.toFixed(0)).toLocaleString(),
-    cents: Number(
-      num.toString().slice(num.toString().indexOf(".") + 1),
-    ).toLocaleString(),
+    dollars: dollars.toLocaleString(),
+    cents: cents.toString().padStart(2, '0'),
   };
 };

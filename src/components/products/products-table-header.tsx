@@ -1,8 +1,16 @@
 import { Button } from "@/ui/button";
 import { Icon } from "@/ui/icon";
 import { ProductsTableSortDropdown } from "./products-table-sort-dropdown";
+import { AddProductDropdown } from "./add-product-dropdown";
+import { IProduct } from "@/api/responses";
 
-export const ProductsTableHeader = ({ refetch }: { refetch: () => void }) => {
+export const ProductsTableHeader = ({
+  refetch,
+  addClientProduct,
+}: {
+  refetch: () => void;
+  addClientProduct: (product: IProduct) => void;
+}) => {
   // const { setSortBy, setOrder } = useURLParamsData();
 
   // const reset = async () => {
@@ -19,10 +27,7 @@ export const ProductsTableHeader = ({ refetch }: { refetch: () => void }) => {
           {<Icon name="refresh" size={22} />}
         </Button>
         <ProductsTableSortDropdown />
-        <Button variant="primary" size="sm">
-          <Icon name="circle-plus" size={22} />
-          {"Добавить"}
-        </Button>
+        <AddProductDropdown addClientProduct={addClientProduct} />
       </div>
     </div>
   );
