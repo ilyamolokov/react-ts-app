@@ -1,2 +1,3 @@
 export const API_URL = 'https://dummyjson.com'
 export const DASH = '-'
+export const EMPTY = ''

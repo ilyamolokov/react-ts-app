@@ -1,5 +1,5 @@
 import { IProduct } from "@/api/responses";
-import { DASH } from "./const";
+import { DASH, EMPTY } from "./const";
 
 export const createClientProduct = (data: {
    title: string;
@@ -17,6 +17,6 @@ export const createClientProduct = (data: {
     price,
     brand,
     sku,
-    thumbnail: ''
+    thumbnail: EMPTY
   }
 }

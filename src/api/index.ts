@@ -1,11 +1,11 @@
-import { API_URL } from "@/lib/const";
+import { API_URL, EMPTY } from "@/lib/const";
 import axios, { type AxiosInstance, type AxiosRequestConfig } from "axios";
 import { IGetProductsRequestParams, ILoginRequestBody, ISearchProductsRequestParams } from "./requests";
 import { IGetProductsResponse, ILoginResponse, ISearchProductsResponse } from "./responses";
 
 export class Api {
   private readonly client: AxiosInstance;
-  private baseURL: string = ''
+  private baseURL: string = EMPTY
 
   constructor(url: string) {
     this.baseURL = url
