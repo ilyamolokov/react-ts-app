@@ -2,7 +2,7 @@ import { DataTable } from "@/ui/data-table";
 import { IGetProductsResponse, IProduct } from "@/api/responses";
 import { DataTableLoader } from "@/ui/data-table-loader";
 import { DataTableError } from "@/ui/data-table-error";
-import { productTableColumns } from "./product-table-columns";
+import { productsTableColumns } from "./product-table-columns";
 
 export const ProductsTableContent = ({
   data,
@@ -25,7 +25,7 @@ export const ProductsTableContent = ({
 
   return (
     <DataTable
-      columns={productTableColumns}
+      columns={productsTableColumns}
       data={[...clientProductsData, ...data.products]}
       getRowId={(row: IProduct) => row.id.toString()}
     />

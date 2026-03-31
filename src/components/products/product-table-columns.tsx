@@ -23,7 +23,7 @@ export const sortableColumns = {
   PRICE: "price",
 };
 
-export const productTableColumns: ColumnDef<IProduct>[] = [
+export const productsTableColumns: ColumnDef<IProduct>[] = [
   {
     id: "select-col",
     header: ({ table }) => (

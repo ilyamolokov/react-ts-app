@@ -6,6 +6,7 @@ import { useURLParamsData } from "@/hooks/use-url-params-data";
 import { useQuery } from "@tanstack/react-query";
 import { ChangeEvent, useState } from "react";
 import { IProduct } from "@/api/responses";
+import { GET_PRODUCTS_LIMITS_VALUE } from "@/lib/const";
 
 export const ProductsPage = () => {
   const { search, setSearch, sortBy, order } = useURLParamsData();
@@ -24,7 +25,7 @@ export const ProductsPage = () => {
         });
       } else {
         return api.getProducts({
-          limits: 0,
+          limits: GET_PRODUCTS_LIMITS_VALUE,
           ...(sortBy && { sortBy }),
           ...(order && { order }),
         });
@@ -43,11 +44,7 @@ export const ProductsPage = () => {
   return (
     <div className="w-full">
       <div className="pt-[22.5px] w-full">
-        <ProductsSearch
-          disabled={isFetching}
-          value={search}
-          onChange={handleInputChange}
-        />
+        <ProductsSearch value={search} onChange={handleInputChange} />
       </div>
       <div className="h-full pt-7.5 w-full">
         <ProductsTable

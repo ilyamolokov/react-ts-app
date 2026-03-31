@@ -3,3 +3,4 @@ export const DASH = '-'
 export const EMPTY = ''
 export const INITIAL_PAGE = 0
 export const INITIAL_PER_PAGE = 5
+export const GET_PRODUCTS_LIMITS_VALUE = 0

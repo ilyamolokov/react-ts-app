@@ -5,11 +5,9 @@ import { ChangeEvent } from "react";
 
 export const ProductsSearch = ({
   value,
-  disabled,
   onChange,
 }: {
   value: string;
-  disabled: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }) => {
   return (
@@ -26,7 +24,6 @@ export const ProductsSearch = ({
               id="login"
               type="text"
               placeholder="Найти"
-              disabled={disabled}
               value={value}
               onChange={onChange}
             />
