@@ -11,13 +11,6 @@ export const ProductsTableHeader = ({
   refetch: () => void;
   addClientProduct: (product: IProduct) => void;
 }) => {
-  // const { setSortBy, setOrder } = useURLParamsData();
-
-  // const reset = async () => {
-  //   await setSortBy("");
-  //   await setOrder("");
-  // };
-
   return (
     <div className="w-full flex items-center justify-between">
       <h4 className="text-black text-[20px] font-semibold">{"Все позиции"}</h4>

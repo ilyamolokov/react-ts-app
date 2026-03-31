@@ -21,6 +21,7 @@ import { DataTablePagination } from "./data-table-pagination";
 import { useState } from "react";
 import { DataTablePaginationLabel } from "./data-table-pagination-label";
 import { cn } from "@/lib/utils";
+import { INITIAL_PAGE, INITIAL_PER_PAGE } from "@/lib/const";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -33,12 +34,11 @@ export function DataTable<TData, TValue>({
   data,
   getRowId,
 }: DataTableProps<TData, TValue>) {
-  // const { page, setPage, perPage } = useURLParamsData();
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const [pagination, setPagination] = useState({
-    pageIndex: 0,
-    pageSize: 5,
+    pageIndex: INITIAL_PAGE,
+    pageSize: INITIAL_PER_PAGE,
   });
 
   const table = useReactTable({
