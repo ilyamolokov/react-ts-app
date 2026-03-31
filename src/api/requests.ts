@@ -4,6 +4,7 @@ export interface ILoginRequestBody {
   checked: boolean
 }
 
-// export interface IGetProductsRequestParams {
-
-// }
+export interface IGetProductsRequestParams {
+  limit: number;
+  skip: number
+}

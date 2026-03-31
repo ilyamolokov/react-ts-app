@@ -2,9 +2,9 @@ import { DataTable } from "@/ui/data-table";
 import { ColumnDef } from "@tanstack/react-table";
 import { ProductsTableTitleCell } from "./products-table-title-cell";
 import { Icon } from "@/ui/icon";
-import { IGetProductsResponse, IProduct } from "@/api/responses";
 import { ProductsTableLoader } from "./products-table-loader";
 import { ProductsTableError } from "./products-table-error";
+import { IGetProductsResponse, IProduct } from "@/api/responses";
 
 const formatPrice = (num: number) => {
   return {
@@ -16,6 +16,13 @@ const formatPrice = (num: number) => {
 };
 
 const columns: ColumnDef<IProduct>[] = [
+  {
+    accessorKey: "id",
+    header: "ID",
+    cell: ({ row }) => (
+      <p className="text-[#222222] font-roboto">{row.original.id}</p>
+    ),
+  },
   {
     accessorKey: "title",
     header: "Наименование",
@@ -89,12 +96,10 @@ export const ProductsTableContent = ({
   data,
   isFetching,
   error,
-  refetch,
 }: {
   data: IGetProductsResponse | undefined;
   isFetching: boolean;
   error: Error | null;
-  refetch: () => void;
 }) => {
   if (!data && isFetching) {
     return <ProductsTableLoader />;

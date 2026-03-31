@@ -1,6 +1,6 @@
 import { API_URL } from "@/lib/const";
 import axios, { type AxiosInstance, type AxiosRequestConfig } from "axios";
-import { ILoginRequestBody } from "./requests";
+import { IGetProductsRequestParams, ILoginRequestBody } from "./requests";
 import { IGetProductsResponse, ILoginResponse } from "./responses";
 
 export class Api {
@@ -33,7 +33,7 @@ export class Api {
     return this.post('auth/login', { username: body.username, password: body.password }, { headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Credentials': 'true' } })
   }
 
-  getProducts(params?: { limit: number; skip:number }) {
+  getProducts(params?: Partial<IGetProductsRequestParams>) {
     return this.get<IGetProductsResponse>('products', params)
   }
 }

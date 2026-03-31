@@ -7,23 +7,29 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "../ui/pagination";
+import { getPagination } from "@/lib/get-pagination";
 
 interface PaginationProps {
   currentPage: number;
-  disabled?: boolean;
-  pages: {
-    value: number;
-    active: boolean;
-  }[];
+  totalPages: number;
   onPageChange: (page: number) => void;
+  nextsPageDisabled: boolean;
+  nextPage: () => void;
+  previousPageDisabled: boolean;
+  previousPage: () => void;
 }
 
 export const DataTablePagination = ({
   currentPage,
-  disabled,
-  pages,
+  totalPages,
   onPageChange,
+  nextsPageDisabled,
+  nextPage,
+  previousPageDisabled,
+  previousPage,
 }: PaginationProps) => {
+  const pages = getPagination({ currentPage, totalPages });
+
   if (!pages.length) {
     return null;
   }
@@ -33,26 +39,27 @@ export const DataTablePagination = ({
       <PaginationContent>
         <PaginationItem
           className={cn({
-            "pointer-events-none opacity-50": currentPage <= 1 || disabled,
+            "pointer-events-none opacity-50": previousPageDisabled,
           })}
         >
-          <PaginationPrevious onClick={() => onPageChange(currentPage - 1)} />
+          <PaginationPrevious onClick={previousPage} />
         </PaginationItem>
       </PaginationContent>
 
       <PaginationContent className="gap-2">
-        {pages.map(({ value }, index) => {
-          return (
-            <PaginationItem
-              key={index}
-              className={cn({ "pointer-events-none opacity-50": disabled })}
-            >
+        {pages.map((value, index) => {
+          return value ? (
+            <PaginationItem key={index}>
               <PaginationLink
                 isActive={value === currentPage}
-                onClick={() => onPageChange(value)}
+                onClick={() => onPageChange(value - 1)}
               >
                 {value}
               </PaginationLink>
+            </PaginationItem>
+          ) : (
+            <PaginationItem key={index}>
+              <PaginationLink>{"..."}</PaginationLink>
             </PaginationItem>
           );
         })}
@@ -61,11 +68,10 @@ export const DataTablePagination = ({
       <PaginationContent>
         <PaginationItem
           className={cn({
-            "pointer-events-none opacity-50":
-              currentPage >= pages.length || disabled,
+            "pointer-events-none opacity-50": nextsPageDisabled,
           })}
         >
-          <PaginationNext onClick={() => onPageChange(currentPage + 1)} />
+          <PaginationNext onClick={nextPage} />
         </PaginationItem>
       </PaginationContent>
     </PaginationComponent>

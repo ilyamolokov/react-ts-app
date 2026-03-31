@@ -17,42 +17,38 @@ import {
   TableRow,
 } from "./table";
 import { DataTablePagination } from "./data-table-pagination";
+import { useState } from "react";
+import { DataTablePaginationLabel } from "./data-table-pagination-label";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  // isFetching?: boolean;
-  // // pages: IPaginationLink[];
-  // // refetch?: () => void;
-  // // meta?: IMeta;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-  // isFetching = false,
-  // pages,
-  // refetch,
-  // meta,
 }: DataTableProps<TData, TValue>) {
+  // const { page, setPage, perPage } = useURLParamsData();
+
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 5,
+  });
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    // getSortedRowModel: getSortedRowModel(),
+    // getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    initialState: {
-      // pagination: meta ? { pageSize: meta.per_page } : {},
-    },
+    state: { pagination },
+    onPaginationChange: setPagination,
   });
 
   return (
-    <div className="w-full space-y-10">
-      {/*{refetch && (
-        <div className="mb-2 min-h-7">
-          <DataTableActiveFilters refetch={refetch} />
-        </div>
-      )}*/}
-
+    <div className="w-full h-125 flex flex-col justify-between gap-2 bg-white">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -96,32 +92,28 @@ export function DataTable<TData, TValue>({
         </TableBody>
       </Table>
 
-      {/*{Boolean(pages.length) && (
-        <div className="py-4">
-          <DataTablePagination disabled={isFetching} pages={pages} />
-        </div>
-      )}*/}
-
-      <div className="w-full flex items-center justify-between py-[11px]">
-        <p className="text-[#B2B3B9] text-lg">
-          <span>{`Показано `}</span>
-          <span className="text-[#333333]">{`1-20`}</span>
-          <span>{` из `}</span>
-          <span className="text-[#333333]">{120}</span>
-        </p>
+      <div className="flex w-full items-center gap-2 justify-between py-2.75">
+        <DataTablePaginationLabel
+          pageFirstItemCount={
+            table.getState().pagination.pageSize *
+              table.getState().pagination.pageIndex +
+            1
+          }
+          pageLastItemCount={
+            table.getState().pagination.pageSize *
+              table.getState().pagination.pageIndex +
+            table.getRowModel().rows.length
+          }
+          totalItems={table.getRowCount()}
+        />
         <DataTablePagination
-          currentPage={1}
-          pages={[
-            {
-              value: 1,
-              active: true,
-            },
-            {
-              value: 2,
-              active: false,
-            },
-          ]}
-          onPageChange={() => {}}
+          currentPage={table.getState().pagination.pageIndex + 1}
+          totalPages={table.getPageCount()}
+          onPageChange={table.setPageIndex}
+          nextsPageDisabled={!table.getCanNextPage()}
+          nextPage={() => table.nextPage()}
+          previousPageDisabled={!table.getCanPreviousPage()}
+          previousPage={() => table.previousPage()}
         />
       </div>
     </div>
