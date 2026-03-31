@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { Progress } from "@/ui/progress";
 
-export const ProductsTableLoader = () => {
+export const DataTableLoader = () => {
   const [progress, setProgress] = useState(13);
 
   useEffect(() => {

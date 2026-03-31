@@ -6,7 +6,7 @@ enum SortOrder {
   DESC = "desc",
 }
 
-export const ProductsTableSortableHeader = ({
+export const DataTableSortableHeader = ({
   accessorKey,
   label,
 }: {
@@ -31,9 +31,11 @@ export const ProductsTableSortableHeader = ({
       }}
     >
       <span>{label}</span>
-      {order === SortOrder.ASC && sortBy === accessorKey && <Icon name="asc" />}
+      {order === SortOrder.ASC && sortBy === accessorKey && (
+        <Icon name="asc" size={20} />
+      )}
       {order === SortOrder.DESC && sortBy === accessorKey && (
-        <Icon name="desc" />
+        <Icon name="desc" size={20} />
       )}
     </div>
   );
