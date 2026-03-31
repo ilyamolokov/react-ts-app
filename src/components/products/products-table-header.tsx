@@ -1,7 +1,7 @@
 import { Button } from "@/ui/button";
 import { Icon } from "@/ui/icon";
 import { ProductsTableSortDropdown } from "./products-table-sort-dropdown";
-import { AddProductDropdown } from "./add-product-dropdown";
+import { AddProductDialog } from "./add-product-dialog";
 import { IProduct } from "@/api/responses";
 
 export const ProductsTableHeader = ({
@@ -20,7 +20,7 @@ export const ProductsTableHeader = ({
           {<Icon name="refresh" size={22} />}
         </Button>
         <ProductsTableSortDropdown />
-        <AddProductDropdown addClientProduct={addClientProduct} />
+        <AddProductDialog addClientProduct={addClientProduct} />
       </div>
     </div>
   );

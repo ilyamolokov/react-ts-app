@@ -6,7 +6,7 @@ import { AddProductForm } from "./add-product-form";
 import { IProduct } from "@/api/responses";
 import { useState } from "react";
 
-export const AddProductDropdown = ({
+export const AddProductDialog = ({
   addClientProduct,
 }: {
   addClientProduct: (product: IProduct) => void;
