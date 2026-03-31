@@ -6,6 +6,7 @@ import {
   getCoreRowModel,
   useReactTable,
   getPaginationRowModel,
+  RowSelectionState,
 } from "@tanstack/react-table";
 
 import {
@@ -19,17 +20,21 @@ import {
 import { DataTablePagination } from "./data-table-pagination";
 import { useState } from "react";
 import { DataTablePaginationLabel } from "./data-table-pagination-label";
+import { cn } from "@/lib/utils";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  getRowId: (row: TData) => string;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  getRowId,
 }: DataTableProps<TData, TValue>) {
   // const { page, setPage, perPage } = useURLParamsData();
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const [pagination, setPagination] = useState({
     pageIndex: 0,
@@ -40,11 +45,12 @@ export function DataTable<TData, TValue>({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    // getSortedRowModel: getSortedRowModel(),
-    // getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    state: { pagination },
+    state: { pagination, rowSelection },
     onPaginationChange: setPagination,
+    enableRowSelection: true,
+    onRowSelectionChange: setRowSelection,
+    getRowId,
   });
 
   return (
@@ -73,7 +79,12 @@ export function DataTable<TData, TValue>({
             table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
-                data-state={row.getIsSelected() && "selected"}
+                data-state={row.getIsSelected() ? "selected" : null}
+                onClick={row.getToggleSelectedHandler()}
+                className={cn(
+                  row.getIsSelected() &&
+                    "shadow-[inset_2px_0_0_var(--color-blue-400)]",
+                )}
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>

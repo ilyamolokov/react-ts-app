@@ -8,19 +8,45 @@ import { IGetProductsResponse, IProduct } from "@/api/responses";
 import { ProductsTableSortableHeader } from "./products-table-sortable-header";
 import { formatPrice } from "@/lib/format-price";
 import { DASH } from "@/lib/const";
+import { Checkbox } from "@/ui/checkbox";
+
+const sortableColumns = {
+  TITLE: "title",
+  BRAND: "brand",
+  SKU: "sku",
+  RATING: "rating",
+  PRICE: "price",
+};
 
 const columns: ColumnDef<IProduct>[] = [
   {
-    accessorKey: "id",
-    header: "ID",
+    id: "select-col",
+    header: ({ table }) => (
+      <Checkbox
+        className="border-grey-500"
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllRowsSelected(!!value)}
+      />
+    ),
     cell: ({ row }) => (
-      <p className="text-[#222222] font-roboto">{row.original.id}</p>
+      <Checkbox
+        className="border-grey-500"
+        checked={row.getIsSelected()}
+        disabled={!row.getCanSelect()}
+        onChange={row.getToggleSelectedHandler()}
+      />
     ),
   },
   {
-    accessorKey: "title",
+    accessorKey: sortableColumns.TITLE,
     header: () => (
-      <ProductsTableSortableHeader accessorKey="title" label="Наименование" />
+      <ProductsTableSortableHeader
+        accessorKey={sortableColumns.TITLE}
+        label="Наименование"
+      />
     ),
     cell: ({ row }) => (
       <ProductsTableTitleCell
@@ -31,27 +57,36 @@ const columns: ColumnDef<IProduct>[] = [
     ),
   },
   {
-    accessorKey: "brand",
+    accessorKey: sortableColumns.BRAND,
     header: () => (
-      <ProductsTableSortableHeader accessorKey="brand" label="Вендор" />
+      <ProductsTableSortableHeader
+        accessorKey={sortableColumns.BRAND}
+        label="Вендор"
+      />
     ),
     cell: ({ row }) => (
       <p className="font-bold text-[#222222]">{row.original.brand ?? DASH}</p>
     ),
   },
   {
-    accessorKey: "sku",
+    accessorKey: sortableColumns.SKU,
     header: () => (
-      <ProductsTableSortableHeader accessorKey="sku" label="Артикул" />
+      <ProductsTableSortableHeader
+        accessorKey={sortableColumns.SKU}
+        label="Артикул"
+      />
     ),
     cell: ({ row }) => (
       <p className="text-[#222222] font-roboto">{row.original.sku}</p>
     ),
   },
   {
-    accessorKey: "rating",
+    accessorKey: sortableColumns.RATING,
     header: () => (
-      <ProductsTableSortableHeader accessorKey="rating" label="Оценка" />
+      <ProductsTableSortableHeader
+        accessorKey={sortableColumns.RATING}
+        label="Оценка"
+      />
     ),
     cell: ({ row }) => {
       const rating = row.original.rating;
@@ -66,9 +101,12 @@ const columns: ColumnDef<IProduct>[] = [
     },
   },
   {
-    accessorKey: "price",
+    accessorKey: sortableColumns.PRICE,
     header: () => (
-      <ProductsTableSortableHeader accessorKey="price" label="Цена, ₽" />
+      <ProductsTableSortableHeader
+        accessorKey={sortableColumns.PRICE}
+        label="Цена, ₽"
+      />
     ),
     cell: ({ row }) => {
       const { dollars, cents } = formatPrice(row.original.price);
@@ -113,5 +151,11 @@ export const ProductsTableContent = ({
     return <ProductsTableError error={error} />;
   }
 
-  return <DataTable columns={columns} data={data.products} />;
+  return (
+    <DataTable
+      columns={columns}
+      data={data.products}
+      getRowId={(row: IProduct) => row.id.toString()}
+    />
+  );
 };

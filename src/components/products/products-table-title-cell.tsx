@@ -18,9 +18,9 @@ export const ProductsTableTitleCell = ({
         height={48}
         className="rounded-[8px] border border-[#ECECEB]"
       />
-      <div className="flex flex-col gap-[10px] items-start justify-center">
+      <div className="flex flex-col gap-2.5 items-start justify-center">
         <p className="leading-4 font-bold">{title}</p>
-        <p className="text-sm leading-3.5 text-[#B2B3B9]">{category}</p>
+        <p className="text-sm leading-3.5 text-grey-500">{category}</p>
       </div>
     </div>
   );
