@@ -96,8 +96,7 @@ export function DataTable<TData, TValue>({
         <DataTablePaginationLabel
           pageFirstItemCount={
             table.getState().pagination.pageSize *
-              table.getState().pagination.pageIndex +
-            1
+            table.getState().pagination.pageIndex
           }
           pageLastItemCount={
             table.getState().pagination.pageSize *
@@ -109,7 +108,7 @@ export function DataTable<TData, TValue>({
         <DataTablePagination
           currentPage={table.getState().pagination.pageIndex + 1}
           totalPages={table.getPageCount()}
-          onPageChange={table.setPageIndex}
+          onPageChange={(value) => table.setPageIndex(value - 1)}
           nextsPageDisabled={!table.getCanNextPage()}
           nextPage={() => table.nextPage()}
           previousPageDisabled={!table.getCanPreviousPage()}

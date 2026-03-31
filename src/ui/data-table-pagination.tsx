@@ -52,7 +52,7 @@ export const DataTablePagination = ({
             <PaginationItem key={index}>
               <PaginationLink
                 isActive={value === currentPage}
-                onClick={() => onPageChange(value - 1)}
+                onClick={() => onPageChange(value)}
               >
                 {value}
               </PaginationLink>

@@ -12,7 +12,7 @@ export const DataTablePaginationLabel = ({
   return (
     <p className="text-[#B2B3B9] text-lg">
       <span>{`Показано `}</span>
-      <span className="text-[#333333]">{`${pageFirstItemCount}-${pageLastItemCount}`}</span>
+      <span className="text-[#333333]">{`${pageFirstItemCount === pageLastItemCount ? pageFirstItemCount : pageFirstItemCount + 1}-${pageLastItemCount}`}</span>
       <span>{` из `}</span>
       <span className="text-[#333333]">{totalItems}</span>
     </p>

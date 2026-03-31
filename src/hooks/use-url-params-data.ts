@@ -4,12 +4,14 @@ import { parseAsInteger, useQueryState } from "nuqs";
 
 enum QueryParams {
   PAGE = "page",
-  PER_PAGE = "perPage"
+  PER_PAGE = "perPage",
+  SEARCH = "search"
 }
 
 interface IUseURLParamsData {
   [QueryParams.PER_PAGE]: number;
   [QueryParams.PAGE]: number;
+  [QueryParams.SEARCH]: string;
 }
 
 export const useURLParamsData = (
@@ -25,6 +27,10 @@ export const useURLParamsData = (
     parseAsInteger.withDefault(defaultValues?.[QueryParams.PAGE] ?? 1),
   );
 
+  const [search, setSearch] = useQueryState(QueryParams.SEARCH, {
+    defaultValue: defaultValues?.[QueryParams.SEARCH] ?? "",
+  });
+
 
   return {
     perPage,
@@ -32,5 +38,8 @@ export const useURLParamsData = (
 
     page,
     setPage,
+
+    search,
+    setSearch
   };
 };
