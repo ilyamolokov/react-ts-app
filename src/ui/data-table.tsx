@@ -16,6 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from "./table";
+import { DataTablePagination } from "./data-table-pagination";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -45,7 +46,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="flex flex-col justify-between">
+    <div className="w-full space-y-10">
       {/*{refetch && (
         <div className="mb-2 min-h-7">
           <DataTableActiveFilters refetch={refetch} />
@@ -100,6 +101,29 @@ export function DataTable<TData, TValue>({
           <DataTablePagination disabled={isFetching} pages={pages} />
         </div>
       )}*/}
+
+      <div className="w-full flex items-center justify-between py-[11px]">
+        <p className="text-[#B2B3B9] text-lg">
+          <span>{`Показано `}</span>
+          <span className="text-[#333333]">{`1-20`}</span>
+          <span>{` из `}</span>
+          <span className="text-[#333333]">{120}</span>
+        </p>
+        <DataTablePagination
+          currentPage={1}
+          pages={[
+            {
+              value: 1,
+              active: true,
+            },
+            {
+              value: 2,
+              active: false,
+            },
+          ]}
+          onPageChange={() => {}}
+        />
+      </div>
     </div>
   );
 }

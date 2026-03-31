@@ -1,6 +1,6 @@
-import { http } from "@/http";
-import { ILoginRequestBody } from "@/http/requests";
-import { ILoginResponse } from "@/http/responses";
+import { api } from "@/api";
+import { ILoginRequestBody } from "@/api/requests";
+import { ILoginResponse } from "@/api/responses";
 import { AuthForm } from "@/components/auth/auth-form";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
@@ -14,7 +14,7 @@ export const AuthPage = () => {
     AxiosError<{ message: string }>,
     ILoginRequestBody
   >({
-    mutationFn: (body) => http.login(body),
+    mutationFn: (body) => api.login(body),
     onSuccess: (data, { checked }) => {
       localStorageService.clear();
       sessionStorageService.clear();

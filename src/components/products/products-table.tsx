@@ -1,13 +1,27 @@
 import { ProductsTableContent } from "./products-table-content";
 import { ProductsTableHeader } from "./products-table-header";
-import { ProductsTableFooter } from "./products-table-footer";
+import { IGetProductsResponse } from "@/api/responses";
 
-export const ProductsTable = () => {
+export const ProductsTable = ({
+  data,
+  isFetching,
+  error,
+  refetch,
+}: {
+  data: IGetProductsResponse | undefined;
+  isFetching: boolean;
+  error: Error | null;
+  refetch: () => void;
+}) => {
   return (
-    <div className="p-[30px] bg-white space-y-[40px]">
+    <div className="p-7.5 bg-white space-y-10 h-168.75">
       <ProductsTableHeader />
-      <ProductsTableContent />
-      <ProductsTableFooter />
+      <ProductsTableContent
+        data={data}
+        isFetching={isFetching}
+        error={error}
+        refetch={refetch}
+      />
     </div>
   );
 };

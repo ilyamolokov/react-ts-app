@@ -1,4 +1,4 @@
-import { ILoginRequestBody } from "@/http/requests";
+import { ILoginRequestBody } from "@/api/requests";
 import { Button } from "@/ui/button";
 import { Checkbox } from "@/ui/checkbox";
 import { Field, FieldError, FieldLabel } from "@/ui/field";

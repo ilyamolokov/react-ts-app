@@ -1,9 +1,9 @@
 import { API_URL } from "@/lib/const";
 import axios, { type AxiosInstance, type AxiosRequestConfig } from "axios";
 import { ILoginRequestBody } from "./requests";
-import { ILoginResponse } from "./responses";
+import { IGetProductsResponse, ILoginResponse } from "./responses";
 
-export class Http {
+export class Api {
   private readonly client: AxiosInstance;
   private baseURL: string = ''
 
@@ -32,6 +32,10 @@ export class Http {
   login(body: ILoginRequestBody): Promise<ILoginResponse> {
     return this.post('auth/login', { username: body.username, password: body.password }, { headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Credentials': 'true' } })
   }
+
+  getProducts(params?: { limit: number; skip:number }) {
+    return this.get<IGetProductsResponse>('products', params)
+  }
 }
 
-export const http = new Http(API_URL)
+export const api = new Api(API_URL)
